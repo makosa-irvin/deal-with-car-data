@@ -111,6 +111,7 @@ for j in range(len(nissan_mpgList)-1):
     #t.pendown
     t.dot()
 
+t.write("Nissan", font=(50))
 #for toyota
 #screen.setworldcoordinates(0,0,toyota_totalTime,toyota_highestMPG)
 t.penup()
@@ -128,12 +129,13 @@ for j in range(len(toyota_mpgList)-1):
     t.goto(x,y)
     #t.pendown
     t.dot()
-
+t.write("Toyota", font=(50))
 #for suzuki
 #screen.setworldcoordinates(0,0,suzuki_totalTime,suzuki_highestMPG)
 t.penup()
 t.goto(0,suzuki_mpgList[0])
 t.pendown()
+
 t.pencolor('red')
 for j in range(len(suzuki_mpgList)-1):
     time_diffx = suzuki_stopTime - suzuki_timePeriods[j]
@@ -146,9 +148,10 @@ for j in range(len(suzuki_mpgList)-1):
     t.goto(x,y)
     #t.pendown
     t.dot()
-
+t.write("Suzuki", font=(50))
 #the x and y axis
 t.pencolor('black')
+
 t.pensize(3)
 t.penup()
 t.goto(0,300)
@@ -156,8 +159,21 @@ t.pendown()
 t.left(270)
 t.forward(300)
 t.left(90)
-t.forward(300)
+t.forward(300) 
+
+#to put the measurement points
+
+
+t.penup()
+t.goto(10,-1.1)
+t.pendown()
+t.write("Time",font=(10))
+
+t.penup()
+t.goto(-10,20)
+t.pendown()
+t.write("MPG",font=(10))
 
 
 screen.update()
-turtle.mainloop()
+turtle.exitonclick()
