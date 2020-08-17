@@ -5,6 +5,7 @@
 import datetime
 import turtle
 
+
 def scatnreg(filesname):
     filesList = []
 
@@ -57,8 +58,11 @@ def scatnreg(filesname):
                 daysb4fill.append(time_diff)
             else:
                 time_diff = curr_time -time_periods[-1]
+                if time_diff.days < 0:
+                    daysb4fill.append(0)
                 #print(time_diff)
-                daysb4fill.append(time_diff.days)
+                else:
+                    daysb4fill.append(time_diff.days)
 
             time_periods.append(curr_time)
         idx -= 1 
@@ -68,6 +72,11 @@ def scatnreg(filesname):
     for i in mpgList:
         if i > highest_mpg:
             highest_mpg = i
+
+    highest_dayb4refill = 0
+    for i in daysb4fill:
+        if i > highest_dayb4refill:
+            highest_dayb4refill = i
 
     #regression line
         #sum of all x values
@@ -94,7 +103,14 @@ def scatnreg(filesname):
     avgY = sigmaY / n
     
     m = ((sigmaXY)- (n * avgX * avgY))/(sigmaXq-n*(avgX**2))
-    print(m)
+
+    #get 2 points
+    #y = avg(y) + m(x-avg(x))
+    x1 = xList[1]
+    x2 = highest_dayb4refill
+    y1 = avgY + m *(x1-avgX)
+    y2 = avgY + m *(x2-avgX)
+
     
 
     
@@ -127,11 +143,16 @@ def scatnreg(filesname):
         t.pendown()
         t.dot(3)
 
+    t.penup()
+    t.goto(x1,y1)
+    t.pendown()
+    
+    t.goto(x2,y2)
     screen.update()
     turtle.exitonclick()
 
 
 
 
-nissan_file = open("NissanVersa.csv",'r')
+nissan_file = open("Toyota4Runner.csv",'r')
 scatnreg(nissan_file)
