@@ -68,6 +68,38 @@ def scatnreg(filesname):
     for i in mpgList:
         if i > highest_mpg:
             highest_mpg = i
+
+    #regression line
+        #sum of all x values
+        #sum of all y values
+        #sum of x**2 values
+        #sum of x*y values
+        #formula --> y = avg(y) +m(x-avg(x))
+                # m = sigma(x*y)-n(avg(x)*avg(y))
+                #     divide by sigma(x**2)-n*avg(x)**2
+    sigmaX = 0
+    sigmaY = 0
+    sigmaXY = 0
+    sigmaXq= 0
+    xList = daysb4fill
+    yList = mpgList
+    n = len(xList)
+    for i in range(0,n):
+        sigmaX += xList[i]
+        sigmaY += yList[i]
+        sigmaXq += xList[i]**2
+        sigmaXY +=  xList[i] * yList[i]
+
+    avgX = sigmaX / n
+    avgY = sigmaY / n
+    
+    m = ((sigmaXY)- (n * avgX * avgY))/(sigmaXq-n*(avgX**2))
+    print(m)
+    
+
+    
+
+
     #Implement the graph
     t = turtle.Turtle()
     screen = t.getscreen()
@@ -89,14 +121,12 @@ def scatnreg(filesname):
 
     #plot the points
     for i in range(0,len(mpgList)):
-        print(daysb4fill[i],mpgList[i])
+        
         t.penup()
-        t.goto(daysb4fill[i],mpgList[i])
+        t.goto(xList[i],yList[i])
         t.pendown()
         t.dot(3)
 
-    #regression line
-    
     screen.update()
     turtle.exitonclick()
 
