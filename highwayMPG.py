@@ -62,6 +62,46 @@ def scatnreg(filesname):
 
             time_periods.append(curr_time)
         idx -= 1 
-    return mpgList,daysb4fill
+    
+    #highest mpg
+    highest_mpg = 0
+    for i in mpgList:
+        if i > highest_mpg:
+            highest_mpg = i
+    #Implement the graph
+    t = turtle.Turtle()
+    screen = t.getscreen()
+    screen.tracer(100)
+
+    screen.setworldcoordinates(0,0,20,highest_mpg)
+    #plot x and y axis
+    #x axis
+    t.forward(20)
+    t.write("Days before refill",align="right")
+
+    #y axis
+    t.penup()
+    t.goto(0,0)
+    t.pendown()
+    t.left(90)
+    t.forward(highest_mpg)
+    t.write("Observed MPG",align="left")
+
+    #plot the points
+    for i in range(0,len(mpgList)):
+        print(daysb4fill[i],mpgList[i])
+        t.penup()
+        t.goto(daysb4fill[i],mpgList[i])
+        t.pendown()
+        t.dot(3)
+
+    #regression line
+    
+    screen.update()
+    turtle.exitonclick()
+
+
+
+
 nissan_file = open("NissanVersa.csv",'r')
 scatnreg(nissan_file)
