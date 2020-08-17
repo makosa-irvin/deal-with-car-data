@@ -106,14 +106,10 @@ def scatnreg(filesname):
 
     #get 2 points
     #y = avg(y) + m(x-avg(x))
-    x1 = xList[1]
+    x1 = 0
     x2 = highest_dayb4refill
     y1 = avgY + m *(x1-avgX)
     y2 = avgY + m *(x2-avgX)
-
-    
-
-    
 
 
     #Implement the graph
@@ -149,10 +145,22 @@ def scatnreg(filesname):
     
     t.goto(x2,y2)
     screen.update()
+        
+
+    
     turtle.exitonclick()
 
 
 
 
-nissan_file = open("Toyota4Runner.csv",'r')
-scatnreg(nissan_file)
+#Uncomment to view nissan but comment toyota
+#nissan_file = open("NissanVersa.csv",'r')
+#scatnreg(nissan_file)
+#nissan_file.close()
+
+# Uncomment for toyota but comment nissan first
+
+toyota_file = open("Toyota4Runner.csv","r")   
+scatnreg(toyota_file) 
+toyota_file.close()
+
