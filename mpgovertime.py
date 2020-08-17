@@ -26,27 +26,28 @@ def readnplot(filesname):
             data_noq.append(z)
 
         #fetch mpg data
-        mpg = float(data_noq[1])   
-        mpgList.append(mpg)
+        if float(data_noq[1]) > 0:
+            mpg = float(data_noq[1])   
+            mpgList.append(mpg)
 
-        #fetch date
-        dateStr = data_noq[2]
-        
-        year = dateStr[:4]
-        month = dateStr[5:7]
-        day = dateStr[8:10]
-
-        timeStr = data_noq[3]
-        if len(timeStr) ==8:
-            hour = timeStr[:2]
-            minute = timeStr[3:5]
-
-        else:
-            hour = '0'+timeStr[0]
-            minute = timeStr[2:5]
+            #fetch date
+            dateStr = data_noq[2]
             
-        curr_time = datetime.datetime(int(year),int(month),int(day),int(hour),int(minute))
-        time_periods.append(curr_time)
+            year = dateStr[:4]
+            month = dateStr[5:7]
+            day = dateStr[8:10]
+
+            timeStr = data_noq[3]
+            if len(timeStr) ==8:
+                hour = timeStr[:2]
+                minute = timeStr[3:5]
+
+            else:
+                hour = '0'+timeStr[0]
+                minute = timeStr[2:5]
+                
+            curr_time = datetime.datetime(int(year),int(month),int(day),int(hour),int(minute))
+            time_periods.append(curr_time)
 
         idx -= 1
 
@@ -94,11 +95,13 @@ screen.tracer(100)
 
 #mark the points
 #for nissan
-screen.setworldcoordinates(0,0,nissan_totalTime,nissan_highestMPG)
+screen.setworldcoordinates(-10,-5,toyota_totalTime,nissan_highestMPG)
 t.penup()
 t.goto(0,nissan_mpgList[0])
 t.pendown()
+
 t.pencolor('green')
+
 for j in range(len(nissan_mpgList)-1):
     time_diffx = nissan_stopTime - nissan_timePeriods[j]
     
@@ -109,9 +112,9 @@ for j in range(len(nissan_mpgList)-1):
     #t.penup()
     t.goto(x,y)
     #t.pendown
-    t.dot()
+    t.dot(4)
 
-t.write("Nissan", font=(50))
+t.write("Nissan", font=(50), align = "right")
 #for toyota
 #screen.setworldcoordinates(0,0,toyota_totalTime,toyota_highestMPG)
 t.penup()
@@ -128,7 +131,7 @@ for j in range(len(toyota_mpgList)-1):
     #t.penup()
     t.goto(x,y)
     #t.pendown
-    t.dot()
+    t.dot(4)
 t.write("Toyota", font=(50))
 #for suzuki
 #screen.setworldcoordinates(0,0,suzuki_totalTime,suzuki_highestMPG)
@@ -147,7 +150,7 @@ for j in range(len(suzuki_mpgList)-1):
     #t.penup()
     t.goto(x,y)
     #t.pendown
-    t.dot()
+    t.dot(4)
 t.write("Suzuki", font=(50))
 #the x and y axis
 t.pencolor('black')
@@ -165,12 +168,12 @@ t.forward(300)
 
 
 t.penup()
-t.goto(10,-1.1)
+t.goto(10,-1.2)
 t.pendown()
 t.write("Time",font=(10))
 
 t.penup()
-t.goto(-10,20)
+t.goto(-13,20)
 t.pendown()
 t.write("MPG",font=(10))
 
